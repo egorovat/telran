@@ -2,9 +2,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
-public class ArrayIntegerListTest {
+public class OurArrayListIntegerTest {
 
-    private ArrayIntegerList list = new ArrayIntegerList();
+    private OurArrayList<Integer> list = new OurArrayList<>();
 
     @Test
     public void size_Of_Empty_List_Is_0(){

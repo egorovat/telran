@@ -3,10 +3,10 @@ package telran.de;
 
 public class Picture extends Shape {
 
-    Shape[] shapes;
-    private final int BORDER_LENGTH = 50;
+    private final Shape[] shapes;
+    private static final int BORDER_LENGTH = 50;
 
-    private Line borderLine;
+    private final Line borderLine;
 
     public Picture(Shape[] shapes, char symbol) {
 
