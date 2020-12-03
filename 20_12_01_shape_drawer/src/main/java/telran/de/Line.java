@@ -14,10 +14,13 @@ public class Line extends Shape {
     @Override
     void draw(){
 
-        System.out.println();
+        StringBuilder builder = new StringBuilder();
+
         for(int i = 0; i < lang; i++){
-            System.out.print(symbol);
+           builder.append(symbol).append(" ");
         }
+
+        System.out.println(builder);
     }
 
 }
