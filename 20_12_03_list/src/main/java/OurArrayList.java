@@ -73,5 +73,27 @@ public class OurArrayList<T>  implements OurList<T> {
         size = 0;
     }
 
+    @Override
+    public boolean remove(T obj) {
+
+        for (int i = 0; i < size; i++) {
+            if (obj.equals(source[i])) {
+                removeById(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(T obj) {
+
+        for (int i = 0; i < size; i++) {
+            if (obj.equals(source[i]))
+                return true;
+        }
+        return false;
+    }
+
 
 }

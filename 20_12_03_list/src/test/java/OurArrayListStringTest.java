@@ -14,6 +14,31 @@ public class OurArrayListStringTest {
     }
 
     @Test
+    public void testRemoveAndContains_ElementIsDeletedByRemoveAndIsVerifiedByContains(){
+
+        list.addLast("first!");
+        list.addLast("the middle");
+        list.addLast("and the last");
+
+        Assertions.assertTrue(list.contains("first!"));
+        Assertions.assertTrue(list.contains("the middle"));
+        Assertions.assertTrue(list.contains("and the last"));
+
+        Assertions.assertTrue(list.remove("the middle"));
+
+        Assertions.assertFalse(list.remove("the middle"));
+
+        Assertions.assertEquals(2, list.size());
+
+        Assertions.assertTrue(list.contains("first!"));
+        Assertions.assertFalse(list.contains("the middle"));
+        Assertions.assertTrue(list.contains("and the last"));
+
+        Assertions.assertEquals("first!", list.get(0));
+        Assertions.assertEquals("and the last", list.get(1));
+    }
+
+    @Test
     public void testCombinedAddLastRemoveByIdSetGetClear_isCorrect(){
         //{"first!, "2!", "Lost", "next after Lost" ,"just a string", "The Last"};
         list.addLast("first!");
