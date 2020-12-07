@@ -76,6 +76,16 @@ public class OurArrayList<T>  implements OurList<T> {
     @Override
     public boolean remove(T obj) {
 
+        if(obj == null){
+            for (int i = 0; i < size; i++) {
+                if (source[i] == null) {
+                    removeById(i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         for (int i = 0; i < size; i++) {
             if (obj.equals(source[i])) {
                 removeById(i);

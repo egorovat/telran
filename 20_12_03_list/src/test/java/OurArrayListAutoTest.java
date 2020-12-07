@@ -39,4 +39,33 @@ public class OurArrayListAutoTest {
         Assertions.assertEquals("Mazda", autos.get(1).brand);
         Assertions.assertEquals(2, autos.size());
     }
+
+    @Test
+    public void testRemoveNullElementInNoNullsCollection_ReturnedFalse(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+
+        Assertions.assertFalse(autos.remove(null));
+
+        Assertions.assertEquals("Opel", autos.get(0).brand);
+        Assertions.assertEquals("Mazda", autos.get(1).brand);
+        Assertions.assertEquals(2, autos.size());
+    }
+
+    @Test
+    public void testRemoveNullElementInCollectionWithNulls_ReturnedFalse(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(null);
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(null);
+
+        Assertions.assertTrue(autos.remove(null));
+
+        Assertions.assertEquals("Opel", autos.get(0).brand);
+        Assertions.assertEquals("Mazda", autos.get(1).brand);
+        Assertions.assertEquals(null, autos.get(2));
+        Assertions.assertEquals(3, autos.size());
+    }
 }
