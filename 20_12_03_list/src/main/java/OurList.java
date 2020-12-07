@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public interface OurList<T> {
 
@@ -53,4 +54,16 @@ public interface OurList<T> {
      * @return - returns true if the obj is present in the list according to equals
      */
     boolean contains(T obj);
+
+    /**
+     *
+     * @return iterator object which iterates from the beginning to the end of the list
+     */
+    Iterator<T> forwardIterator();
+
+    /**
+     *
+     * @return iterator object which iterates from the ent to the beginning of the list
+     */
+    Iterator<T> reversedIterator();
 }

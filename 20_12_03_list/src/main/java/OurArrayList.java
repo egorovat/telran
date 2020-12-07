@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class OurArrayList<T>  implements OurList<T> {
 
@@ -105,5 +106,52 @@ public class OurArrayList<T>  implements OurList<T> {
         return false;
     }
 
+    @Override
+    public Iterator<T> forwardIterator() {
+        Iterator<T> iterator = new ForwardIterator();
+        return iterator;
+    }
 
+    @Override
+    public Iterator<T> reversedIterator() {
+        Iterator<T> iterator = new ReversedIterator();
+        return iterator;
+    }
+
+
+    private class ForwardIterator implements Iterator<T> {
+
+        int currentIndex = 0;
+
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @Override
+        public T next() {
+
+            if(currentIndex > size) throw new IndexOutOfBoundsException();
+
+            return (T) source[currentIndex++];
+        }
+    }
+
+    private class ReversedIterator implements Iterator<T> {
+
+        int currentIndex = size - 1 ;
+
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex >= 0;
+        }
+
+        @Override
+        public T next() {
+
+            return (T) source[currentIndex--];
+        }
+    }
 }

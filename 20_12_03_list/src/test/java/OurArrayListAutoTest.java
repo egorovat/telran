@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 public class OurArrayListAutoTest {
 
     OurArrayList<Auto> autos = new OurArrayList<Auto>();
@@ -67,5 +69,79 @@ public class OurArrayListAutoTest {
         Assertions.assertEquals("Mazda", autos.get(1).brand);
         Assertions.assertEquals(null, autos.get(2));
         Assertions.assertEquals(3, autos.size());
+    }
+
+    @Test
+    public void testForwardIteratorEmptyList_ReturnsHasNextFalse(){
+
+        Assertions.assertFalse(autos.forwardIterator().hasNext());
+    }
+
+    @Test
+    public void testReverseIteratorEmptyList_ReturnsHasNextFalse(){
+
+        Assertions.assertFalse(autos.reversedIterator().hasNext());
+    }
+
+    @Test
+    public void testForwardIteratorNullsList_ReturnsHasNextFalse(){
+
+        autos.addLast(null);
+        autos.addLast(null);
+
+        Iterator iterator = autos.forwardIterator();
+
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals(null, iterator.next());
+
+    }
+
+    @Test
+    public void testReverseIteratorNullsList_ReturnsHasNextFalse(){
+
+        autos.addLast(null);
+        autos.addLast(null);
+
+        Iterator iterator = autos.reversedIterator();
+
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertEquals(null, iterator.next());
+
+    }
+
+    @Test
+    public void testForwardIterator_HasNextAndNextWorkCorrectly(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Iterator iterator = autos.forwardIterator();
+
+        for (int i = 0; i < autos.size(); i++) {
+
+            Assertions.assertTrue(iterator.hasNext());
+            Assertions.assertEquals(autos.get(i), iterator.next());
+        }
+
+        Assertions.assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testReverseIterator_HasNextAndNextWorkCorrectly(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Iterator iterator = autos.reversedIterator();
+
+        for (int i = autos.size() -1 ; i >= 0; i--) {
+
+            Assertions.assertTrue(iterator.hasNext());
+            Assertions.assertEquals(autos.get(i), iterator.next());
+        }
+
+        Assertions.assertFalse(iterator.hasNext());
     }
 }
