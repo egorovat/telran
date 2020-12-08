@@ -99,6 +99,16 @@ public class OurArrayList<T>  implements OurList<T> {
     @Override
     public boolean contains(T obj) {
 
+        if(obj == null){
+            for (int i = 0; i < size; i++) {
+                if (source[i] == null) {
+                    removeById(i);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         for (int i = 0; i < size; i++) {
             if (obj.equals(source[i]))
                 return true;
@@ -132,7 +142,7 @@ public class OurArrayList<T>  implements OurList<T> {
         @Override
         public T next() {
 
-            if(currentIndex > size) throw new IndexOutOfBoundsException();
+            if(currentIndex >= size) throw new IndexOutOfBoundsException();
 
             return (T) source[currentIndex++];
         }
@@ -150,6 +160,8 @@ public class OurArrayList<T>  implements OurList<T> {
 
         @Override
         public T next() {
+
+            if(currentIndex < 0) throw new IndexOutOfBoundsException();
 
             return (T) source[currentIndex--];
         }
