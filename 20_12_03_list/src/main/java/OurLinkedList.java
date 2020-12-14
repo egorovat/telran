@@ -21,8 +21,9 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public T get(int index) {
-        Node<T> node = getNodeByIndex(index);
-        return node.element;
+
+        return (T) getNodeByIndex(index).element;
+
     }
 
     @Override
@@ -47,59 +48,68 @@ public class OurLinkedList<T> implements OurList<T> {
     @Override
     public T removeById(int index) {
 
-        Node del = getNodeByIndex(index);
+        Node<T> del = getNodeByIndex(index);
+        return deleteNode(del);
 
-        if(del.next == null) {
-            if(del.prev == null){
-                last = null;
-                first = null;
-                size--;
-                return (T) del.element;
+    }
+
+    private T deleteNode(Node<T> del) {
+
+        Node<T> delPrev = del.prev;
+        Node<T> delNext = del.next;
+
+
+        if(delPrev != null) {
+            delPrev.next = delNext;
+        } else {
+            first = delNext;
+        }
+
+        if(delNext != null) {
+            delNext.prev = delPrev;
+        }else {
+            last = delPrev;
+        }
+
+        del.prev = del.next = null;
+        T element = (T) del.element;
+        del.element = null;
+
+        size--;
+        return element;
+    }
+
+    @Override
+    public boolean remove(T element) {
+
+        Node<T> del = findElement(element);
+
+        if(del == null)
+            return false;
+
+        deleteNode(del);
+        return true;
+    }
+
+    private Node<T> findElement(T element) {
+
+        Node<T> node = first;
+
+        if(element != null){
+            while (node != null) {
+                if(element.equals(node.element))
+                    return node;
+                node = node.next;
             }
 
-            Node delPrev = del.prev;
-            last = del.prev;
-
-            T element = (T) del.element;
-
-            delPrev.next = null;
-            del.prev = null;
-            del.element = null;
-            size--;
-
-            return element;
+        } else {
+            while (node != null){
+                if (node.element == null)
+                    return node;
+                node = node.next;
+            }
         }
-
-
-        if(del.prev == null) {
-
-            Node delNext = del.next;
-            first = delNext;
-
-            T element = (T) del.element;
-
-            delNext.prev = null;
-            del.next = null;
-            del.element = null;
-            size--;
-
-            return element;
-        }
-
-        Node delPrev = del.prev;
-        Node delNext = del.next;
-        delPrev.next = delNext;
-        delNext.prev = delPrev;
-
-        T element = (T) del.element;
-
-        del.next = null;
-        del.prev = null;
-        del.element = null;
-        size--;
-
-        return element;
-
+        return null;
     }
 
     @Override
@@ -112,82 +122,79 @@ public class OurLinkedList<T> implements OurList<T> {
     @Override
     public void clear() {
 
-        Node node = first;
-        Node current;
-        for (int i = 0; i < size - 1; i++) {
-            node.prev = null;
-            current = node;
-            node = node.next;
-            current.next = null;
-            current.element = null;
-            size--;
-        }
-        last = null;
-        first = null;
-    }
-
-    @Override
-    public boolean remove(T element) {
-        Node node = first;
-
-        if(element == null){
-            for (int i = 0; i < size; i++) {
-                if (node.element == null) {
-                    removeById(i);
-                    return true;
-                }
-                node = node.next;
-            }
-            return false;
-        }
-
-        for (int i = 0; i < size; i++) {
-            if (element.equals(node.element)){
-                removeById(i);
-                return true;
-            }
-            node = node.next;
-        }
-        return false;
+        last = first = null;
+        size = 0;
     }
 
     @Override
     public boolean contains(T element) {
-
-        Node node = first;
-
-        if(element == null){
-            for (int i = 0; i < size; i++) {
-                if (node.element == null) {
-                    return true;
-                }
-                node = node.next;
-            }
-            return false;
-        }
-
-        for (int i = 0; i < size; i++) {
-            if (element.equals(node.element)){
-                return true;
-            }
-            node = node.next;
-        }
-        return false;
+       return findElement(element) != null;
     }
 
     @Override
     public Iterator forwardIterator() {
-        return null;
+
+        Iterator<T> iterator = new ForwardIterator();
+        return iterator;
     }
 
     @Override
     public Iterator reversedIterator() {
-        return null;
+
+        Iterator<T> iterator = new ReverseIterator();
+        return iterator;
     }
 
     @Override
-    public Iterator iterator() {
-        return null;
+    public Iterator<T> iterator() {
+        return forwardIterator();
+    }
+
+    private class ForwardIterator implements Iterator<T> {
+
+        Node<T> currentNode = first;
+
+
+        @Override
+        public boolean hasNext() {
+
+            return currentNode == null ? false : true;
+        }
+
+        @Override
+        public T next() {
+
+            if(currentNode == null) {
+                throw new IndexOutOfBoundsException();
+            }else {
+                T currentElement = currentNode.element;
+                currentNode = currentNode.next;
+                return currentElement;
+            }
+        }
+    }
+
+    private class ReverseIterator implements Iterator<T> {
+
+        Node<T> currentNode = last;
+
+        @Override
+        public boolean hasNext() {
+
+            return currentNode == null ? false : true;
+        }
+
+        @Override
+        public T next() {
+
+            if (currentNode == null) {
+                throw new IndexOutOfBoundsException();
+            } else {
+                T currentElement = currentNode.element;
+                currentNode = currentNode.prev;
+                return currentElement;
+            }
+        }
     }
 
     private static class Node<T>{
