@@ -102,7 +102,6 @@ public class OurArrayList<T>  implements OurList<T> {
         if(obj == null){
             for (int i = 0; i < size; i++) {
                 if (source[i] == null) {
-                    removeById(i);
                     return true;
                 }
             }
@@ -127,7 +126,6 @@ public class OurArrayList<T>  implements OurList<T> {
         Iterator<T> iterator = new ReversedIterator();
         return iterator;
     }
-
 
     private class ForwardIterator implements Iterator<T> {
 
@@ -166,4 +164,10 @@ public class OurArrayList<T>  implements OurList<T> {
             return (T) source[currentIndex--];
         }
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return forwardIterator();
+    }
+
 }

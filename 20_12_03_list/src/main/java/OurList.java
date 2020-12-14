@@ -1,6 +1,6 @@
 import java.util.Iterator;
 
-public interface OurList<T> {
+public interface OurList<T> extends Iterable<T>{
 
     /**
      * Adds the element to the 'this' instance

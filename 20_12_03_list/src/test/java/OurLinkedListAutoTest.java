@@ -1,11 +1,91 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.util.Iterator;
 
+public class OurLinkedListAutoTest {
 
-public class OurArrayListAutoTest {
+    OurLinkedList<Auto> autos = new OurLinkedList<>();
 
-    OurArrayList<Auto> autos = new OurArrayList<>();
+    @Test
+    public void testGetFromEmptyList_IndexOutOfBoundsExceptionThrown(){
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { autos.get(0); });
+    }
+
+    @Test
+    public void testGetIndexMoreThanSize_IndexOutOfBoundsExceptionThrown(){
+
+        autos.addLast(new Auto("BMW", "black"));
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { autos.get(1); });
+    }
+
+    @Test
+    public void get_Index_Out_Of_Bounds_Exception_Thrown_Index_Less_Than_Zero(){
+
+        autos.addLast(new Auto("BMW", "black"));
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { autos.get(-13); });
+    }
+
+    @Test
+    public void testGetByFirstIndex_ReturnsFirstElement(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Auto res = autos.get(0);
+
+        Assertions.assertEquals("Opel", res.brand);
+    }
+
+    @Test
+    public void testGetByLastIndex_ReturnsLastElement(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Auto res = autos.get(2);
+
+        Assertions.assertEquals("Lada", res.brand);
+    }
+
+    @Test
+    public void testGetByIndexBetweenFirstAndLast_returnsCorrectElement(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Auto res = autos.get(1);
+
+        Assertions.assertEquals("Mazda", res.brand);
+    }
+
+    @Test
+    public void testSetEmptyList_IndexOutOfBoundsExceptionThrown(){
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { autos.set(0, new Auto("Volvo", "asphalt")); });
+    }
+
+    @Test
+    public void testSetIndexMoreThanSize_IndexOutOfBoundsExceptionThrown(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { autos.set(3, new Auto("Volvo", "asphalt")); });
+    }
+
+    @Test
+    public void testSetIndexLessThanZero_IndexOutOfBoundsExceptionThrown(){
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { autos.set(-2, new Auto("Volvo", "asphalt")); });
+    }
 
     @Test
     public void testRemoveWithAutoObject_ElementIsDeleted(){
@@ -96,9 +176,10 @@ public class OurArrayListAutoTest {
         Assertions.assertTrue(autos.contains(null));
 
         Assertions.assertEquals("Opel", autos.get(0).brand);
-        Assertions.assertEquals("Mazda", autos.get(1).brand);
-        Assertions.assertEquals(null, autos.get(2));
-        Assertions.assertEquals(3, autos.size());
+        Assertions.assertEquals(null, autos.get(1));
+        Assertions.assertEquals("Mazda", autos.get(2).brand);
+        Assertions.assertEquals(null, autos.get(3));
+        Assertions.assertEquals(4, autos.size());
     }
 
     @Test
