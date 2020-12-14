@@ -166,6 +166,17 @@ public class OurLinkedListAutoTest {
     }
 
     @Test
+    public void testRemoveFromListWithOneElement_ReturnedTrue(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        Auto opel = new Auto("Opel", "grey");
+
+        Assertions.assertTrue(autos.remove(opel));
+
+        Assertions.assertEquals(0, autos.size());
+    }
+
+    @Test
     public void testContainsNullElementInCollectionWithNulls_ReturnedTrue(){
 
         autos.addLast(new Auto("Opel", "grey"));

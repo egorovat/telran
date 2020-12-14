@@ -50,6 +50,12 @@ public class OurLinkedList<T> implements OurList<T> {
         Node del = getNodeByIndex(index);
 
         if(del.next == null) {
+            if(del.prev == null){
+                last = null;
+                first = null;
+                size--;
+                return (T) del.element;
+            }
 
             Node delPrev = del.prev;
             last = del.prev;
@@ -63,6 +69,7 @@ public class OurLinkedList<T> implements OurList<T> {
 
             return element;
         }
+
 
         if(del.prev == null) {
 
