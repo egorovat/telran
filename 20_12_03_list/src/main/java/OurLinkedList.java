@@ -147,6 +147,7 @@ public class OurLinkedList<T> implements OurList<T> {
 
     @Override
     public Iterator<T> iterator() {
+
         return forwardIterator();
     }
 
@@ -158,7 +159,7 @@ public class OurLinkedList<T> implements OurList<T> {
         @Override
         public boolean hasNext() {
 
-            return currentNode == null ? false : true;
+            return currentNode != null;
         }
 
         @Override
@@ -181,7 +182,7 @@ public class OurLinkedList<T> implements OurList<T> {
         @Override
         public boolean hasNext() {
 
-            return currentNode == null ? false : true;
+            return currentNode != null;
         }
 
         @Override

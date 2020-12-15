@@ -258,6 +258,24 @@ public abstract class OurListAutoTest {
     }
 
     @Test
+    public void testIteratorCurrentIndexEqualsSize_IndexOutOfBoundsException(){
+
+        autos.addLast(new Auto("Opel", "grey"));
+        autos.addLast(new Auto("Mazda", "red"));
+        autos.addLast(new Auto("Lada", "olive"));
+
+        Iterator<Auto> iterator = autos.iterator();
+
+        for (int i = 0; i < autos.size(); i++) {
+
+            Assertions.assertTrue(iterator.hasNext());
+            Assertions.assertEquals(autos.get(i), iterator.next());
+        }
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> { iterator.next(); });
+    }
+
+    @Test
     public void testReverseIteratorCurrentIndexLessThanZero_NullPointerException(){
 
         autos.addLast(new Auto("Opel", "grey"));
