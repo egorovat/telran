@@ -6,7 +6,7 @@ public class ListRandomRule implements RandomRule{
 
     public ListRandomRule(List<Integer> list){
 
-        values = list;
+        values = new ArrayList<>(list);
     }
 
     public ListRandomRule(int[] numbers){
