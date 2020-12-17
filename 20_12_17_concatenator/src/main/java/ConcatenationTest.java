@@ -16,7 +16,7 @@ public class ConcatenationTest {
         System.out.println(System.currentTimeMillis() - timeBefore);
     }
 
-    private String[] composeArray(int times, String text) {
+    public String[] composeArray(int times, String text) {
 
             ArrayList<String> strings = new ArrayList<>();
 
